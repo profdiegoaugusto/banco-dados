@@ -81,7 +81,7 @@ Para este projeto, sua tarefa é criar consultas (queries), usando as técnicas 
 
 ```
 
-7. Quem é o pokémon mais forte?
+7. Qual é o pokémon mais forte?
 
 ```sql
 
