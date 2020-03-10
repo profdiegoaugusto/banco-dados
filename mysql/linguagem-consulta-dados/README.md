@@ -67,7 +67,7 @@ WHERE condicao1 OR condicao2 OR condicao3;
 ```sql
 SELECT coluna1, coluna2, coluna3, . . .
 FROM nome_da_tabela
-WHERE condicao;
+WHERE NOT condicao;
 ```
 
 ### Operadores Especiais da SQL
@@ -167,12 +167,6 @@ ORDER BY coluna1, coluna2, . . . ASC | DESC;
 ```
 
 A ordenação padrão dos valores é crescente, porém, você pode usar a palavra-chave `DESC` para visualizar os valores do resultado final em ordem decrescente. Caso queira especificar uma ordenação crescente de maneira explícita, basta usar a palavra-chave `ASC`.
-
-
-# Exercícios
-
-
-
 
 
 
