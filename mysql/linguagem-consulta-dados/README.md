@@ -169,5 +169,259 @@ ORDER BY coluna1, coluna2, . . . ASC | DESC;
 A ordenação padrão dos valores é crescente, porém, você pode usar a palavra-chave `DESC` para visualizar os valores do resultado final em ordem decrescente. Caso queira especificar uma ordenação crescente de maneira explícita, basta usar a palavra-chave `ASC`.
 
 
+## Funções Agregadas
+
+Uma função agregada executa um cálculo em vários valores valores das linhas de determinada(s) coluna(s) e retorna um único valor como resultado. Por exemplo, a função agregada `SUM()` retorna a soma das linhas da coluna do tipo numérica passada como parâmetro.
+
+### Sintaxe
+
+```sql
+NOME_FUNCAO(DISTINCT | ALL expressão)
+```
+
+1. `NOME_FUNCAO`: especifique o nome da função agregada que você vai usar, por exemplo: `COUNT()`, `SUM()`,  `AVG()` ,  `MAX()` ou  `MIN()`; veja a lista completa de funções na tabela [Funções Agregadas do MySQL](#funções-agregadas-do-mysQL);
+
+2. `DISTINCT` ou `ALL`: caso você queira fazer o cálculo baseado em valores distintos, ou seja, sem repetição, use o `DISTINCT` no parâmetro da função. Caso contrário, para usar todos os valores da coluna, incluindo valores repetidos, use o `ALL`. O padrão de toda função agregada é `ALL`, logo, não precisa escrever a palavra-chave no parâmetro da função;
+
+3. *expressão*: especifique o nome da(s) coluna(s) ou um expressão envolvendo colunas e operadores aritméticos.
+
+### Funções Agregadas do MySQL
+
+| Nome               | Descrição                                                    |
+|--------------------|--------------------------------------------------------------|
+| `COUNT()`          | Retorna uma contagem do número de linhas retornadas          |
+| `COUNT(DISTINCT)`  | Retorna a contagem de vários valores diferentes              |
+| `SUM()`            | Retorna a soma                                               |
+| `AVG()`            | Retorna o valor médio do argumento                           |
+| `MAX()`            | Retorna o valor máximo                                       |
+| `MIN()`            | Retorna o valor mínimo                                       |
+| `GROUP_CONCAT()`   | Retorna uma string concatenada                               |
+| `STD()`            | Retorna o desvio padrão da população                         |
+| `STDDEV()`         | Retorna o desvio padrão da população                         |
+| `STDDEV_POP()`     | Retorna o desvio padrão da população                         |
+| `STDDEV_SAMP()`    | Retornar o desvio padrão da amostra                          |
+| `VAR_POP()`        | Retorna a variância padrão da população                      |
+| `VAR_SAMP()`       | Retorna a variância da amostra                               |
+| `VARIANCE()`       | Retorna a variância padrão da população                      |
+| `JSON_ARRAYAGG()`  | Retorna um conjunto de resultados em um vetor único em JSON  |
+| `JSON_OBJECTAGG()` | Retorna um conjunto de resultados em um objeto único em JSON |
+| `BIT_AND()`        | Retorna bit a bit AND                                        |
+| `BIT_OR()`         | Retorna bit a bit OR                                         |
+| `BIT_XOR()`        | Retorna bit a bit XOR                                        |
 
 
+#### EXEMPLO - `COUNT()`
+
+> Com que frequência um determinado tipo de dados ocorre em uma tabela?
+
+* A função agregada `COUNT()` retorna o número de linhas em uma tabela;
+* Ela permite contar todas as linhas ou apenas as linhas que correspondem a uma condição especificada;
+* E possui três formas:
+    * `COUNT(*)`: retorna o número de linhas em um conjunto de resultados retornado por uma instrução `SELECT`; no resultado podem aparecer **linhas duplicadas**, `NOT NULL` e `NULL`.
+    * `COUNT(expressão)`: retorna o número de linhas que não contêm valores `NULL` como resultado de uma expressão;
+    * `COUNT(DISTINCT expressão)` retorna o número de linhas distintas (sem repetição) que não contêm valores `NULL` como resultado da expressão.
+
+##### Exemplo 1
+
+```sql
+SELECT COUNT(*)
+FROM Estado;
+```
+
+| id_estado | uf | nome_estado    |
+|----------:|:--:|----------------|
+|         1 | MG | Minas Gerais   |
+|         2 | ES | Espírito Santo |
+|         3 | RJ | Rio de Janeiro |
+|         4 | SP | São Paulo      |
+
+| COUNT(*) |
+|---------:|
+|        4 |
+
+
+##### Exemplo 2
+
+```sql
+SELECT COUNT(id_produto)
+FROM Produto;
+```
+
+| COUNT(id_produto) |
+|------------------:|
+|               750 |
+
+#### EXEMPLO - `SUM()`
+
+> Permite calcular a soma dos valores em um conjunto.
+
+* Se você usar a função `SUM()` em uma instrução `SELECT` que não retorna nenhuma linha, a função `SUM()` retorna `NULL`, não zero;
+* O `DISTINCT` faz com que função `SUM()` calcule apenas a soma dos valores que não se repetem em um conjunto;
+* Valores `NULL` são ignorados no cálculo.
+
+##### Exemplo 1
+
+| numero |
+|-------:|
+|      1 |
+|      1 |
+|      1 |
+|  `NULL`|
+|      3 |
+|      4 |
+
+```sql
+SELECT SUM(numero)
+FROM NumeroInteiro;
+```
+
+| SUM(numero) |
+|------------:|
+|          10 |
+
+```sql
+SELECT SUM(DISTINCT numero)
+FROM NumeroInteiro;
+```
+
+| SUM(DISTINCT numero) |
+|---------------------:|
+|                    8 |
+
+> Compare os dois exemplos e perceba que os números 1, repetidos na tabela 3 vezes, foram ignorados no cálculo da soma devido o uso do `DISTINCT`.
+
+##### Exemplo 2
+
+```sql
+SELECT id_pedido, quantidade, preco
+FROM Pedido
+WHERE id_pedido = 7;
+```
+
+| id_pedido | quantidade | preco |
+|----------:|-----------:|------:|
+|         7 |          5 | 30.00 |
+|         7 |          2 | 10.00 |
+|         7 |          3 | 25.00 |
+|         7 |          7 | 12.00 |
+
+```sql
+SELECT SUM(quantidade * preco)
+FROM Pedido
+WHERE id_pedido = 7;
+```
+
+| SUM(quantidade * preco) |
+|------------------------:|
+|                     329 |
+
+> O exemplo acima calcula o preço total de um determinado pedido através da expressão: `quantidade * preco`; passada como parâmetro na função `SUM()`.
+
+
+#### EXEMPLO - `AVG()`
+
+> Permite calcular a soma dos valores em um conjunto.
+
+* O `DISTINCT` faz com que função `AVG()` calcule apenas a média dos valores que não se repetem em um conjunto;
+* Valores `NULL` são ignorados no cálculo.
+
+##### Exemplo
+
+| numero |
+|-------:|
+|      1 |
+|      1 |
+|      1 |
+|  `NULL`|
+|      3 |
+|      4 |
+
+```sql
+SELECT AVG(numero)
+FROM NumeroInteiro;
+```
+
+| AVG(numero) |
+|------------:|
+|       2.0000|
+
+> `AVG(numero)` : (1 + 1 + 1 + 3 + 4) / 5
+
+
+```sql
+SELECT AVG(DISTINCT numero)
+FROM NumeroInteiro;
+```
+
+| AVG(DISTINCT numero) |
+|---------------------:|
+|                2.6667|
+
+> `AVG(DISTINCT numero)` : (1 + 3 + 4) / 3
+
+
+#### EXEMPLO - `MAX()`
+
+> Retorna o valor máximo em um conjunto de valores.
+
+
+##### Exemplo 1
+
+| numero |
+|-------:|
+|      1 |
+|      1 |
+|      1 |
+|  `NULL`|
+|      3 |
+|      4 |
+
+```sql
+SELECT MAX(numero)
+FROM NumeroInteiro;
+```
+
+| MAX(numero) |
+|------------:|
+|            4|
+
+
+
+#### EXEMPLO - `MIN()`
+
+> Retorna o valor mínimo em um conjunto de valores.
+
+
+##### Exemplo 1
+
+| numero |
+|-------:|
+|      1 |
+|      1 |
+|      1 |
+|  `NULL`|
+|      3 |
+|      4 |
+
+```sql
+SELECT MIN(numero)
+FROM NumeroInteiro;
+```
+
+| MAX(numero) |
+|------------:|
+|            1|
+
+
+### Cláusula `Group By`
+
+```sql
+SELECT coluna1, coluna2, coluna3, . . .
+FROM nome_da_tabela
+WHERE condição
+GROUP BY coluna1, coluna2, coluna3, . . .
+ORDER BY coluna1, coluna2, coluna3, . . .;
+```
+
+
+* O `GROUP BY` é frequentemente usado com funções agregadas (`COUNT`, `MAX`, `MIN`, `SUM`, `AVG`) para agrupar o conjunto de resultados por uma ou mais colunas;

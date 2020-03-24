@@ -45,6 +45,7 @@ Para este projeto, sua tarefa é criar consultas (queries), usando as técnicas 
 
 ## Consultas
 
+
 1. Selecione o banco de dados (esquema) `pokédex`.
 
 ```sql
@@ -286,6 +287,7 @@ Ordene os resultados crescente por `taxa_captura` e decrescente pelo `total`.
 ```sql
 
 ```
+
 
 
 ## REFERÊNCIAS
