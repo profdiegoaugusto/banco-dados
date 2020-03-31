@@ -423,5 +423,67 @@ GROUP BY coluna1, coluna2, coluna3, . . .
 ORDER BY coluna1, coluna2, coluna3, . . .;
 ```
 
-
 * O `GROUP BY` é frequentemente usado com funções agregadas (`COUNT`, `MAX`, `MIN`, `SUM`, `AVG`) para agrupar o conjunto de resultados por uma ou mais colunas;
+* Ele agrupa um conjunto de linhas em um conjunto de linhas de resumo por valores de colunas ou expressões;
+* Como é retornada uma linha para cada grupo o número de linhas no conjunto de resultados é menor.
+
+##### Exemplo 1
+
+```sql
+SELECT estado, COUNT(*)
+FROM Pedido
+GROUP BY estado;
+```
+
+| estado           | COUNT(*) |
+|------------------|----------|
+| Cancelado        | 6        |
+| Em processamento | 3        |
+| Em espera        | 7        |
+| Enviado          | 4        |
+
+##### Exemplo 2
+
+```sql
+SELECT ano, SUM(lucro)
+FROM Venda
+GROUP BY ano;
+```
+
+| ano  | SUM(lucro) |
+|------|------------|
+| 2018 | 4650       |
+| 2019 | 5000       |
+
+##### Exemplo 3
+
+```sql
+SELECT pais, COUNT(id_cliente)
+FROM Cliente
+GROUP BY pais
+HAVING COUNT(id_cliente);
+```
+
+> A cláusula `HAVING` filtra os resultados da função agregada!
+> Ela foi adicionada à linguagem SQL porque a palavra-chave `WHERE` **não pode ser usada com funções agregadas.**
+
+```sql
+SELECT id_departamento, SUM(qtde_vendas)
+FROM Venda
+WHERE data_venda = '2020-02-29'
+GROUP BY id_departamento
+HAVING SUM(qtde_vendas) > 1000;
+```
+
+> Perceba que no exemplo acima temos a presença das cláusulas `WHERE` e `HAVING` juntas na consulta; isso é possível, porque a cláusula `GROUP BY` é avaliada depois das cláusulas `FROM`, `WHERE` e `SELECT` e antes das seções `HAVING`, `ORDER BY` e `LIMIT`.
+> `HAVING` **é usada somente para filtrar os resultados gerados pela função agregada**, para as outras filtragens da consulta é necessário usar a cláusula `WHERE`.
+
+
+##### Exemplo 4
+
+```sql
+SELECT nome_produto, SUM(qtde_estoque), SUM(qtde_estoque * preco_unitario)
+FROM Produto
+GROUP BY nome
+HAVING SUM(qtde_estoque) > 400 AND SUM(qtde_estoque * preco_unitario) >= 7000;
+```
