@@ -367,7 +367,75 @@ Ordene os resultados crescente por `taxa_captura` e decrescente pelo `total`.
 
 ```
 
-11. 
+11. Qual é a quantidade de Pokémons lendários e não lendários
+
+```sql
+
+
+```
+
+12. Qual é a quantidade de pokémons para cada uma das diferentes cores ordenadas decrescente?
+
+```sql
+
+
+```
+
+13. Qual é a média de peso e altura de cada um dos tipos primários dos pokémons? Ordene os resultados decrescente respectivamente por média de peso e altura.
+```sql
+
+
+```
+
+14. Qual é a taxa de captura média por cor de cada um dos pokémons lendários?
+
+```sql
+
+
+```
+
+15. Qual os tipos primários que possuem a taxa de captura média acima de 100
+
+```sql
+
+
+```
+
+16. Agrupados por cor, quais pokémons não lendários possuem média total abaixo de 400
+
+```sql
+
+
+```
+
+17. Qual o valor máximo total em cada uma das gerações?
+
+```sql
+
+
+```
+
+18. Quantos pokémons lendários existem em cada uma das gerações?
+
+```sql
+
+
+```
+
+19. Em cada uma das gerações, quantos pokémons tem tipos primários e secundários e qual a taxa_captura média deles?
+
+```sql
+
+
+```
+
+20. Qual é a quantidade de cores de cada um dos pokémons lendários em todas as gerações?
+
+```sql
+
+
+```
+
 
 ## REFERÊNCIAS
 
