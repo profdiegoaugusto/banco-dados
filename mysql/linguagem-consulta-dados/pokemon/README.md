@@ -43,7 +43,7 @@ Para este projeto, sua tarefa é criar consultas (queries), usando as técnicas 
 | taxa_captura | A taxa de captura do Pokémon é um número entre 0 e 255, quanto maior, melhor |
 
 
-## Consultas
+## 1. Exercícios de Consultas
 
 
 1. Selecione o banco de dados (esquema) `pokédex`.
@@ -288,7 +288,86 @@ Ordene os resultados crescente por `taxa_captura` e decrescente pelo `total`.
 
 ```
 
+## 2. Exercícios de Funções Agregadas
 
+1. Quais são os valores máximo e mínimo das seguintes colunas:
+    * total
+    * hp
+    * ataque
+    * defesa
+    * ataque_especial
+    * defesa_especial
+    * velocidade
+    * taxa_captura
+
+```sql
+
+
+```
+
+2. Quantas cores diferentes possuem os pokémons?
+
+```sql
+
+
+```
+
+3. Qual é o peso médio dos pokémons?
+
+```sql
+
+
+```
+
+4. Qual é a soma das alturas dos pokémons?
+
+```sql
+
+
+```
+
+5. Quantos pokémons estão cadastrados no banco de dados?
+
+```sql
+
+
+```
+
+6. Qual é o altura média dos pokémons?
+
+```sql
+
+
+```
+
+7. Qual é o desvio padrão do valor de HP dos pokémons?
+```sql
+
+
+```
+
+8. Quantos pokémons possuem tipo2?
+
+```sql
+
+
+```
+
+9. Quantos são os diferentes tipos primários dos pokémons? 
+
+```sql
+
+
+```
+
+10. Qual é a soma dos pesos dos pokémons?
+
+```sql
+
+
+```
+
+11. 
 
 ## REFERÊNCIAS
 
