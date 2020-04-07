@@ -487,3 +487,27 @@ FROM Produto
 GROUP BY nome
 HAVING SUM(qtde_estoque) > 400 AND SUM(qtde_estoque * preco_unitario) >= 7000;
 ```
+
+### Subconsulta
+
+> Uma subconsulta é um comando `SELECT` dentro de outro.
+
+#### Sintaxe
+
+```sql
+SELECT coluna1, coluna2, coluna3, . . .
+FROM nome_da_tabela_1
+WHERE coluna1 = (
+    SELECT coluna1
+    FROM nome_da_tabela_2
+);
+```
+
+
+
+As principais vantagens das subconsultas são:
+
+* Elas permitem consultas estruturadas de tal forma que seja possível isolar cada trecho de código de sua consulta;
+* Elas fornecem maneiras alternativas de executar operações que, de outra forma, exigiriam junções (`JOIN`) e uniões (`UNION`) complexas
+* Muitas pessoas acham subconsultas mais legíveis do que junções (`JOIN`)  ou uniões (`UNION`) complexas.
+* De fato, foi a inovação das subconsultas que deu às pessoas a ideia original de chamar a SQL de Linguagem de Consulta Estruturada (*"Structured Query Language"*).
