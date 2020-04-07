@@ -207,7 +207,7 @@ WHERE Estado.id_regiao IS NULL;
 
 ## `RIGHT JOIN` - Junção Direita
 
-> A junção esquerda seleciona dados começando na tabela direita.
+> A junção direita seleciona dados começando na tabela direita.
 
 No `RIGHT JOIN` cada linha da tabela esquerda é comparada com todas as linhas da tabela direita. Se os valores em ambas linhas fizer com que a condição de `JOIN` seja avaliada como `verdadeira`, a cláusula `RIGHT JOIN` cria uma nova linha com todas as colunas das duas tabelas e inclue essa linha no resultado final. Se uma linha da tabela direita não tiver linhas correspondentes na tabela esquerda, a coluna da tabela esquerda terá `NULL` no conjunto de resultados finais. Confira o exemplo abaixo:
 
