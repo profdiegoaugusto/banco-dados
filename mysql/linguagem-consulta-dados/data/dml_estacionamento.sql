@@ -268,14 +268,6 @@ INSERT INTO Tipo_Combustivel (id_modelo, id_combustivel) VALUES (8, 1);
 
 SELECT * FROM Tipo_Combustivel;
 
-INSERT INTO Cor (nome_cor) VALUES ('1 Vermelho');
-INSERT INTO Cor (nome_cor) VALUES ('2 Azul');
-INSERT INTO Cor (nome_cor) VALUES ('3 Amarelo');
-INSERT INTO Cor (nome_cor) VALUES ('4 Verde');
-INSERT INTO Cor (nome_cor) VALUES ('5 Branco');
-INSERT INTO Cor (nome_cor) VALUES ('6 Preto');
-
-
 -- -----------------
 -- Veículo
 -- -----------------
